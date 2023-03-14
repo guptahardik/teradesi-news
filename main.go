@@ -10,11 +10,12 @@ import (
 
 func main() {
 	fmt.Println("Hello, World!")
+	run_api.Give_news("bitcoin", "us", "business")
 	router_business()
 }
 
 func router_business() {
-	run_api.Hello()
+
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{

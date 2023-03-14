@@ -16,5 +16,23 @@ func main() {
 			"message": "pong",
 		})
 	})
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.GET("/news", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "news",
+		})
+	})
+	r.POST("/news", func(c *gin.Context) {
+		var data struct {
+			Name string `json:"name"`
+			Age  int    `json:"age"`
+		}
+
+		if err := c.ShouldBindJSON(&data); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		c.BindJSON(&data)
+		c.JSON(200, gin.H{"Welcome": data.Name, "Your age is Age": data.Age})
+	})
+	r.Run()
 }

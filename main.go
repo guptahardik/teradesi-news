@@ -5,11 +5,16 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/guptahardik/teradesi-news/run_api"
 )
 
 func main() {
 	fmt.Println("Hello, World!")
+	router_business()
+}
 
+func router_business() {
+	run_api.Hello()
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
